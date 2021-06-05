@@ -4,8 +4,11 @@ import com.google.gson.*;
 import efs.task.todoapp.repository.TaskEntity;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 
 public class TaskSerialization implements JsonSerializer<TaskEntity> {
+  private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
   @Override
   public JsonElement serialize(TaskEntity task, Type type, JsonSerializationContext jsonSerializationContext) {
     JsonObject taskJsonObject = new JsonObject();
@@ -14,7 +17,7 @@ public class TaskSerialization implements JsonSerializer<TaskEntity> {
 
     taskJsonObject.addProperty("description", task.getDescription());
 
-    taskJsonObject.addProperty("due", task.getDue().toString());
+    taskJsonObject.addProperty("due", task.getDue() != null ? sdf.format(task.getDue()) : null);
 
     return taskJsonObject;
   }
