@@ -9,23 +9,24 @@ import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 public class TaskDeserialization implements JsonDeserializer<TaskEntity> {
-  private final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-  @Override
-  public TaskEntity deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-    JsonObject jsonObject = json.getAsJsonObject();
+    @Override
+    public TaskEntity deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
 
-    JsonElement jsonId = jsonObject.get("id");
-    JsonElement jsonDescription = jsonObject.get("description");
-    JsonElement jsonDue = jsonObject.get("due");
+        JsonElement jsonId = jsonObject.get("id");
+        JsonElement jsonDescription = jsonObject.get("description");
+        JsonElement jsonDue = jsonObject.get("due");
 
-    String jsonIdAsString = jsonId.getAsString();
+        String jsonIdAsString = jsonId.getAsString();
 
-    try {
-      return new TaskEntity(UUID.fromString(jsonIdAsString), jsonDescription.getAsString(), sdf.parse(jsonDue.getAsString()));
-    } catch (ParseException e) {
-      e.printStackTrace();
-      return null;
+        try {
+            TaskEntity taskGson = new TaskEntity(UUID.fromString(jsonIdAsString), jsonDescription.getAsString(), sdf.parse(jsonDue.getAsString()));
+            return taskGson;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
-  }
 }

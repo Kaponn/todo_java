@@ -7,7 +7,7 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 
 public class TaskSerialization implements JsonSerializer<TaskEntity> {
-  private final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+  private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
   @Override
   public JsonElement serialize(TaskEntity task, Type type, JsonSerializationContext jsonSerializationContext) {
