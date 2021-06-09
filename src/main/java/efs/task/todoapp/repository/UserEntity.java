@@ -1,7 +1,5 @@
 package efs.task.todoapp.repository;
 
-import java.util.UUID;
-
 public class UserEntity {
   private String username;
   private String password;

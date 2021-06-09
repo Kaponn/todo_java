@@ -19,6 +19,7 @@ public class UserRestHandler implements RestHandler {
 
     @Override
     public void handleGet(HttpExchange exchange) {
+        throw new HttpException(HttpStatus.METHOD_NOT_ALLOWED, "Method not allowed for user");
     }
 
     @Override
@@ -39,12 +40,12 @@ public class UserRestHandler implements RestHandler {
 
     @Override
     public void handlePut(HttpExchange exchange) {
-
+        throw new HttpException(HttpStatus.METHOD_NOT_ALLOWED, "Method not allowed for user");
     }
 
     @Override
     public void handleDelete(HttpExchange exchange) {
-
+        throw new HttpException(HttpStatus.METHOD_NOT_ALLOWED, "Method not allowed for user");
     }
 
     @Override

@@ -92,7 +92,7 @@ public class TaskRestHandler implements RestHandler {
     private UUID getTaskId(String address, boolean canBeEmpty) {
         try {
             final String[] splitAddress = address.split("/");
-            if (splitAddress.length < 1) {
+            if (splitAddress.length < 4) {
                 if (canBeEmpty) {
                     return null;
                 }
@@ -133,7 +133,8 @@ public class TaskRestHandler implements RestHandler {
         } else {
             final List<TaskEntity> taskList = taskService.getTasksOfUser(user.getUsername());
             response = new Gson().toJson(taskList).getBytes(StandardCharsets.UTF_8);
-            }
+        }
+
         HttpStatus status = HttpStatus.OK;
         exchange.sendResponseHeaders(status.getStatus(), response.length);
         exchange.close();
