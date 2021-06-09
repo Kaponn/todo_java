@@ -1,18 +1,16 @@
 package efs.task.todoapp.repository;
 
-import java.util.Date;
+import efs.task.todoapp.constants.HttpStatus;
+import efs.task.todoapp.util.HttpException;
+
 import java.util.UUID;
 
 public class TaskEntity {
-  private UUID id;
-  private String description;
-  private Date due;
 
-  public TaskEntity(UUID id, String description, Date due) {
-    this.id = UUID.randomUUID();
-    this.description = description;
-    this.due = due;
-  }
+  private UUID id;
+  private String username;
+  private String description;
+  private String due;
 
   public String getDescription() {
     return description;
@@ -22,11 +20,11 @@ public class TaskEntity {
     this.description = description;
   }
 
-  public Date getDue() {
+  public String getDue() {
     return due;
   }
 
-  public void setDue(Date due) {
+  public void setDue(String due) {
     this.due = due;
   }
 
@@ -36,5 +34,19 @@ public class TaskEntity {
 
   public void setId(UUID id) {
     this.id = id;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public void validateUser(String username) throws HttpException {
+    if (!username.equals(this.username)) {
+      throw new HttpException(HttpStatus.FORBIDDEN, "The task is not property of this user");
+    }
   }
 }

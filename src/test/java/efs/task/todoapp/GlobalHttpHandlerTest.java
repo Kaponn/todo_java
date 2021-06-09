@@ -34,7 +34,7 @@ public class GlobalHttpHandlerTest {
         globalHttpHandler.handle(exchangeMock);
 
         //then
-        verify(taskRestHandlerMock).handlePut();
+        verify(taskRestHandlerMock).handlePut(exchangeMock);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class GlobalHttpHandlerTest {
         globalHttpHandler.handle(exchangeMock);
 
         //then
-        verify(taskRestHandlerMock).handlePost();
+        verify(taskRestHandlerMock).handlePost(exchangeMock);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class GlobalHttpHandlerTest {
         globalHttpHandler.handle(exchangeMock);
 
         //then
-        verify(taskRestHandlerMock).handleGet();
+        verify(taskRestHandlerMock).handleGet(exchangeMock);
     }
 
     @Test
@@ -82,6 +82,6 @@ public class GlobalHttpHandlerTest {
         globalHttpHandler.handle(exchangeMock);
 
         //then
-        verify(taskRestHandlerMock).handleDelete();
+        verify(taskRestHandlerMock).handleDelete(exchangeMock);
     }
 }

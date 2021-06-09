@@ -5,26 +5,33 @@ import com.sun.net.httpserver.HttpHandler;
 
 public class GlobalHttpHandler implements HttpHandler {
 
-    private RestHandler handler;
+    private final RestHandler handler;
 
     public GlobalHttpHandler(RestHandler handler) {
         this.handler = handler;
     }
 
+    @Override
     public void handle(HttpExchange exchange) {
-        switch (exchange.getRequestMethod()) {
-            case "PUT": System.out.println("go to put handler");
-                handler.handlePut();
-                break;
-            case "POST": System.out.println("go to post handler");
-                handler.handlePost();
-                break;
-            case "GET": System.out.println("go to get handler");
-                handler.handleGet();
-                break;
-            case "DELETE": System.out.println("go to delete handler");
-                handler.handleDelete();
-                break;
+        try {
+            switch (exchange.getRequestMethod()) {
+                case "PUT":
+                    handler.handlePut(exchange);
+                    break;
+                case "POST":
+                    handler.handlePost(exchange);
+                    break;
+                case "GET":
+                    handler.handleGet(exchange);
+                    break;
+                case "DELETE":
+                    handler.handleDelete(exchange);
+                    break;
+                default:
+                    handler.unhandledMethod(exchange);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

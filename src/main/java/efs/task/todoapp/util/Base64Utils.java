@@ -8,7 +8,7 @@ import java.util.Base64.Decoder;
 public class Base64Utils {
 
   public static String encode(final String value) {
-    final byte[] valueBytes = value.getBytes(StandardCharsets.ISO_8859_1);
+    final byte[] valueBytes = value.getBytes(StandardCharsets.UTF_8);
 
     final Encoder base64Encoder = Base64.getEncoder();
 
@@ -20,6 +20,6 @@ public class Base64Utils {
 
     final byte[] decodedValueBytes = base64Decoder.decode(valueInBase64);
 
-    return new String(decodedValueBytes, StandardCharsets.ISO_8859_1);
+    return new String(decodedValueBytes, StandardCharsets.UTF_8);
   }
 }
