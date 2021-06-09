@@ -79,7 +79,7 @@ public class TaskRestHandler implements RestHandler {
         String username = userData[0];
         String password = userData[1];
         UserEntity user = userService.getUser(username);
-        if (username == null){
+        if (user == null){
             throw new HttpException(HttpStatus.UNAUTHORIZED, "User not found");
         }
 
@@ -150,9 +150,12 @@ public class TaskRestHandler implements RestHandler {
         final String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
         final Map<String, String> taskData = HttpHandlerUtil.validateRequestBody(body);
         UUID taskId = taskService.addTask(taskData, user.getUsername());
-        System.out.println(taskId);
 
-        response = new Gson().toJson(taskId).getBytes(StandardCharsets.UTF_8);
+
+        String responseText = "{ \"id\": " + new Gson().toJson(taskId) + " }";
+        System.out.println(responseText);
+        response = responseText.getBytes(StandardCharsets.UTF_8);
+
         status = HttpStatus.CREATED;
 
         exchange.sendResponseHeaders(status.getStatus(), response.length);

@@ -2,6 +2,10 @@ package efs.task.todoapp.handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import efs.task.todoapp.constants.HttpStatus;
+import efs.task.todoapp.util.HttpException;
+
+import java.io.IOException;
 
 public class GlobalHttpHandler implements HttpHandler {
 
@@ -12,7 +16,7 @@ public class GlobalHttpHandler implements HttpHandler {
     }
 
     @Override
-    public void handle(HttpExchange exchange) {
+    public void handle(HttpExchange exchange) throws IOException {
         try {
             switch (exchange.getRequestMethod()) {
                 case "PUT":
@@ -32,6 +36,8 @@ public class GlobalHttpHandler implements HttpHandler {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            exchange.sendResponseHeaders(HttpStatus.METHOD_NOT_ALLOWED.getStatus(), 0);
+            exchange.close();
         }
     }
 
