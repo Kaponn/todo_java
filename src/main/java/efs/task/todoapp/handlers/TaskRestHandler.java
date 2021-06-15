@@ -137,6 +137,7 @@ public class TaskRestHandler implements RestHandler {
 
         HttpStatus status = HttpStatus.OK;
         exchange.sendResponseHeaders(status.getStatus(), response.length);
+        exchange.getResponseBody().write(response);
         exchange.close();
     }
 
@@ -160,6 +161,7 @@ public class TaskRestHandler implements RestHandler {
         status = HttpStatus.CREATED;
 
         exchange.sendResponseHeaders(status.getStatus(), response.length);
+        exchange.getResponseBody().write(response);
         exchange.close();
     }
 
@@ -190,6 +192,7 @@ public class TaskRestHandler implements RestHandler {
         status = HttpStatus.OK;
 
         exchange.sendResponseHeaders(status.getStatus(), response.length);
+        exchange.getResponseBody().write(response);
         exchange.close();
     }
 

@@ -14,7 +14,7 @@ public class WebServerFactory {
 
     public static HttpServer createServer() {
         try {
-            final HttpServer server = HttpServer.create(new InetSocketAddress("localhost", 8080), 0);
+            final HttpServer server = HttpServer.create(new InetSocketAddress("localhost", 2137), 0);
 
             UserService userService = new UserService(new UserRepository());
             TaskService taskService = new TaskService(new TaskRepository());

@@ -39,6 +39,7 @@ public class GlobalHttpHandler implements HttpHandler {
             exchange.sendResponseHeaders(HttpStatus.METHOD_NOT_ALLOWED.getStatus(), 0);
             exchange.close();
         }
+        exchange.close();
     }
 
 }
