@@ -7,8 +7,10 @@ import efs.task.todoapp.repository.UserRepository;
 import efs.task.todoapp.util.HttpException;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class UserService {
+  private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
 
   private final UserRepository userRepository;
 
@@ -35,6 +37,7 @@ public class UserService {
         throw new HttpException(HttpStatus.CONFLICT, "User already exists");
       }
 
+      LOGGER.info("Added new user of username: " + username);
       return savedUser;
     }
 

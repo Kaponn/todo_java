@@ -1,5 +1,6 @@
 package efs.task.todoapp.repository;
 
+import com.google.gson.Gson;
 import efs.task.todoapp.constants.HttpStatus;
 import efs.task.todoapp.util.HttpException;
 
@@ -26,6 +27,10 @@ public class TaskEntity {
 
   public void setDue(String due) {
     this.due = due;
+  }
+
+  public String toJson() {
+    return new Gson().toJson(this);
   }
 
   public UUID getId() {

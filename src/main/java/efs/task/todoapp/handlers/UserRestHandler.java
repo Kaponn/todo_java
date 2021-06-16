@@ -9,7 +9,10 @@ import efs.task.todoapp.util.HttpHandlerUtil;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.logging.Logger;
+
 public class UserRestHandler implements RestHandler {
+    private static final Logger LOGGER = Logger.getLogger(UserRestHandler.class.getName());
 
     private final UserService userService;
 
@@ -24,6 +27,7 @@ public class UserRestHandler implements RestHandler {
 
     @Override
     public void handlePost(HttpExchange exchange) throws IOException {
+        LOGGER.info("HTTP User Handler [POST]");
         try {
             final String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
             System.out.println("request body: " + body);

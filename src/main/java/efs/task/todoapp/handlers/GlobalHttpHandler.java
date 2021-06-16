@@ -2,7 +2,6 @@ package efs.task.todoapp.handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import efs.task.todoapp.constants.HttpStatus;
 import efs.task.todoapp.util.HttpException;
 
 import java.io.IOException;
@@ -34,9 +33,9 @@ public class GlobalHttpHandler implements HttpHandler {
                 default:
                     handler.unhandledMethod(exchange);
             }
-        } catch (Exception e) {
+        } catch (HttpException e) {
             e.printStackTrace();
-            exchange.sendResponseHeaders(HttpStatus.METHOD_NOT_ALLOWED.getStatus(), 0);
+            exchange.sendResponseHeaders(e.getHttpStatus().getStatus(), 0);
             exchange.close();
         }
         exchange.close();

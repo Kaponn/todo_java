@@ -2,9 +2,12 @@ package efs.task.todoapp.repository;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 public class TaskRepository implements Repository<UUID, TaskEntity> {
     private final Map<UUID, TaskEntity> taskMap = new TreeMap<>();
+
+    private static final Logger LOGGER = Logger.getLogger(TaskRepository.class.getName());
 
     @Override
     public UUID save(TaskEntity taskEntity) {
@@ -30,6 +33,7 @@ public class TaskRepository implements Repository<UUID, TaskEntity> {
     @Override
     public TaskEntity update(UUID uuid, TaskEntity taskEntity) {
         TaskEntity taskToUpdate = taskMap.get(uuid);
+        LOGGER.info("TaskRepository::update " + taskEntity.toJson());
         String description = taskEntity.getDescription();
         if (description != null && !description.isBlank()) {
             taskToUpdate.setDescription(description);

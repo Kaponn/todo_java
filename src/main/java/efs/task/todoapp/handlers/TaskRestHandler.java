@@ -17,8 +17,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class TaskRestHandler implements RestHandler {
+
+    private static final Logger LOGGER = Logger.getLogger(TaskRestHandler.class.getName());
 
     private final TaskService taskService;
     private final UserService userService;
@@ -70,8 +73,9 @@ public class TaskRestHandler implements RestHandler {
             throw new HttpException(HttpStatus.BAD_REQUEST, "Auth header missing");
         }
 
-        return getUserFromAuth(auth);
+        LOGGER.info("HTTP Task Handler, auth: " + auth);
 
+        return getUserFromAuth(auth);
     }
 
     private UserEntity getUserData(String[] userData) throws HttpException {
@@ -86,6 +90,9 @@ public class TaskRestHandler implements RestHandler {
         if (!user.getPassword().equals(password)){
             throw new HttpException(HttpStatus.UNAUTHORIZED, "Incorrect password");
         }
+
+        LOGGER.info("HTTP Task Handler, username " + user.getUsername());
+
         return user;
     }
 
@@ -103,6 +110,7 @@ public class TaskRestHandler implements RestHandler {
                 throw new Exception();
             }
 
+            LOGGER.info("HTTP Task Handler, canBeEmpty " + canBeEmpty + " ID " + taskId);
             return UUID.fromString(taskId);
 
         } catch (Exception e) {
@@ -112,6 +120,7 @@ public class TaskRestHandler implements RestHandler {
 
     @Override
     public void handleGet(HttpExchange exchange) throws IOException {
+        LOGGER.info("HTTP Task Handler [GET]");
         String[] userData = validateAuth(exchange.getRequestHeaders());
         final UserEntity user = getUserData(userData);
         byte[] response;
@@ -144,6 +153,7 @@ public class TaskRestHandler implements RestHandler {
 
     @Override
     public void handlePost(HttpExchange exchange) throws IOException {
+        LOGGER.info("HTTP Task Handler [GET]");
         String[] userData = validateAuth(exchange.getRequestHeaders());
         UserEntity user = getUserData(userData);
         HttpStatus status;
@@ -167,6 +177,7 @@ public class TaskRestHandler implements RestHandler {
 
     @Override
     public void handlePut(HttpExchange exchange) throws IOException {
+        LOGGER.info("HTTP Task Handler [PUT]");
         final UUID taskId = getTaskId(exchange.getRequestURI().getPath(), false);
         HttpStatus status;
         byte[] response;
@@ -198,6 +209,7 @@ public class TaskRestHandler implements RestHandler {
 
     @Override
     public void handleDelete(HttpExchange exchange) throws IOException {
+        LOGGER.info("HTTP Task Handler [DELETE]");
         final UUID taskId = getTaskId(exchange.getRequestURI().getPath(), false);
         HttpStatus status;
 

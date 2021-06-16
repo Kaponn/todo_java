@@ -8,8 +8,11 @@ import efs.task.todoapp.util.HttpException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class TaskService {
+  private final Logger LOGGER = Logger.getLogger(TaskService.class.getName());
+
   private final TaskRepository taskRepository;
 
   public TaskService(TaskRepository taskRepository) {
@@ -30,7 +33,10 @@ public class TaskService {
       task.setDescription(description);
       task.setDue(due);
 
-    return taskRepository.save(task);
+      UUID taskId = taskRepository.save(task);
+
+      LOGGER.info("Added new task of ID: " + taskId);
+      return taskId;
   }
 
   public TaskEntity getTask(UUID id) {
